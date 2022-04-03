@@ -4,7 +4,7 @@ class Solution {
         
         //check if all elements are included
         if(res.size()==nums.length){
-            ans.add(new LinkedList(res));
+            ans.add(new ArrayList(res));
             return;
         }
         
@@ -27,10 +27,10 @@ class Solution {
     public List<List<Integer>> permute(int[] nums) {
         
         //list of permutations 
-        List<List<Integer>> ans=new LinkedList();
+        List<List<Integer>> ans=new ArrayList();
         
         //stores one permutation in the recursive stack
-        List<Integer> res=new LinkedList();
+        List<Integer> res=new ArrayList();
         
         int visited[]=new int[nums.length];
         find(nums,res,ans,visited);
