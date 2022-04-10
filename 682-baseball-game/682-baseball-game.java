@@ -14,7 +14,7 @@ class Solution {
                 record.remove(record.size()-1);
             }
             else{
-                 record.add(Integer.parseInt(ops[i]));
+                 record.add(Integer.valueOf(ops[i]));
             }
         }
         for(int el:record){
