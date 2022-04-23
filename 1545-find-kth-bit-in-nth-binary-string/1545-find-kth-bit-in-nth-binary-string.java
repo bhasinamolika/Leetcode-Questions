@@ -15,25 +15,15 @@ class Solution {
     
 	
     public String reverse_and_invert(String s) {
-        char[] c = s.toCharArray();
-        
-        int i = 0;
-        int j = c.length-1;
-        
-        while(i < j) {
-            Character temp = c[i];
-            c[i] = c[j] == '0' ? '1' : '0';
-            c[j] = temp == '0' ? '1': '0';
-            
-            i++;
-            j--;
+       StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '0') {
+                sb.append("1");
+            } else {
+                sb.append("0");
+            }
         }
-        
-        if (c.length % 2 == 1) {
-            c[i] = c[i] == '0' ? '1' : '0';
-        }
-        
-        return String.valueOf(c);
+        return sb.reverse().toString();
     }
     
 }
