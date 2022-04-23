@@ -11,7 +11,7 @@ public class Codec {
                 attachment+=Character.toString(ch.charAt(rand));
             }
             if(map.containsKey(attachment)) continue;
-            ans = "http://tinyurl.com/"+attachment;
+            ans = ans+attachment;
             map.put(ans, longUrl);
             break;
         }
