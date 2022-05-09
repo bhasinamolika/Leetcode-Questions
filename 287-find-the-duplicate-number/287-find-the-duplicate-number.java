@@ -18,6 +18,6 @@ class Solution {
             hare = nums[hare];
         }
 
-        return hare;
+        return tortoise;
     }
 }
