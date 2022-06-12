@@ -37,12 +37,12 @@ public int minDifference(int arr[], int n)
     int mid = arrSum/2;
     int s1=0;
     
-    while(mid<=arrSum){
+    while(mid>=0){
         if(isSubsetSum(n,arr,mid)){
             s1 = mid;
             break;
         }
-        mid++;
+        mid--;
     }
     
     //s2 = arrSum - s1   =>  s2-s1 = arrSum -s1 -s1 
