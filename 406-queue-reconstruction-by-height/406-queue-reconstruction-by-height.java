@@ -9,6 +9,6 @@ class Solution {
             
             list.add(arr[1], arr);
         }
-        return list.toArray(new int[0][0]);
+        return list.toArray(new int[people.length][2]);
     }
 }
