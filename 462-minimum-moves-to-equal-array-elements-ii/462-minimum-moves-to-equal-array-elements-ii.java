@@ -4,15 +4,16 @@ class Solution {
         Arrays.sort(nums);
         int median=0;
         int ans=0;
-        if(n%2==0){
-            // if even number of elements
-            median=nums[n/2];
-            System.out.println(median);
-        }
-        else{
-            median=nums[n/2];
-            System.out.println(median);
-        }
+        // if(n%2==0){
+        //     // if even number of elements
+        //     median=nums[n/2];
+        //     System.out.println(median);
+        // }
+        // else{
+        //     median=nums[n/2];
+        //     System.out.println(median);
+        // }
+        median=nums[n/2];
           for(int i=0;i<n;i++){
               ans+=(Math.abs(median-nums[i]));
           }  
