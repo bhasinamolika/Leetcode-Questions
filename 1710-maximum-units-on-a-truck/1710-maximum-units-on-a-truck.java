@@ -6,13 +6,13 @@ class Solution {
             if(truckSize<=0) break;
             if(truckSize>=boxTypes[i][0]){
                 ans+=boxTypes[i][0]*boxTypes[i][1];
-                System.out.println(ans);
+                //System.out.println(ans);
                 truckSize-=boxTypes[i][0];
             }
             else{
                 ans+=truckSize*boxTypes[i][1];
                 truckSize-=boxTypes[i][0];
-                System.out.println(ans);
+                //System.out.println(ans);
             }
         }
         return ans;
