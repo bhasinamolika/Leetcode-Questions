@@ -1,45 +1,43 @@
 class Solution {
-private:
-    int n,mod=1000000000+7;
-    vector<vector<int>>mem;
-    int solve(string &s,int index,int prev,vector<bool>&seen){
-        if(index==n){
-            return 1;
-        } else if(mem[index][prev]!=-1){
-            return mem[index][prev];
-        } else {
-            int ans=0;
-            if(s[index]=='D'){
-                for(int i=0;i<prev;i++){
-                    if(!seen[i]){
-                        seen[i]=true;
-                        ans=(ans%mod+solve(s,index+1,i,seen)%mod)%mod;
-                        seen[i]=false;
-                    }
-                }
-            } else {
-                for(int i=prev+1;i<=n;i++){
-                    if(!seen[i]){
-                        seen[i]=true;
-                        ans=(ans%mod+solve(s,index+1,i,seen)%mod)%mod;
-                        seen[i]=false;
-                    }
+public:
+    int vis[201];
+    long long int dp[202][202];
+    int mod=1000000007;
+    int util(string &s,int index,int prev){
+        if(index==s.size()) return 1;
+        
+        if(dp[index][prev]!=-1) return dp[index][prev];
+        
+        long long int cnt=0;
+        if(s[index]=='D'){
+           for(int i=0;i<prev;i++){
+               if(vis[i]==0){
+                    vis[i]=1;
+                    cnt+=(util(s,index+1,i))%mod;
+                     vis[i]=0;
+               }
+           } 
+        }
+        else{
+            for(int i=prev+1;i<=s.size();i++){
+                if(vis[i]==0){
+                    vis[i]=1;
+                    cnt+=(util(s,index+1,i))%mod;
+                    vis[i]=0;
                 }
             }
-            return mem[index][prev]=ans;
         }
+        return dp[index][prev]=cnt%mod;
     }
-public:
-    int numPermsDISequence(string &s) {
-        n=s.size();
-        int ans=0;
-        mem=vector<vector<int>>(n+1,vector<int>(n+1,-1));
-        vector<bool>seen(n+1,false);
-        for(int i=0;i<=n;i++){
-            seen[i]=true;
-            ans=(ans%mod+solve(s,0,i,seen)%mod)%mod;
-            seen[i]=false;
+    int numPermsDISequence(string s) {
+        long long int cnt=0;
+         memset(vis,0,sizeof(vis));
+        memset(dp,-1,sizeof(dp));
+        for(int i=0;i<=s.size();i++){
+            vis[i]=1;
+            cnt+=(util(s,0,i))%mod;
+            vis[i]=0;
         }
-        return ans;
+        return cnt%mod;
     }
 };
