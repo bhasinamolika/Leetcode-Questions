@@ -1,29 +1,16 @@
 class Solution {
     public int maxResult(int[] nums, int k) {
-        Deque<int[]> deque = new ArrayDeque();
-        int len = nums.length;
-        int score = -1;
-        
-        for(int idx = len-1;idx>=0;idx--){
-           while(deque.size()>0){
-              int pair[] = deque.peekFirst();
-              int pairIdx = pair[0];
-              if(pairIdx>idx+k) deque.removeFirst();
-              else break;
-           }
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->b[1]-a[1]);// storing index and maxSum uptill that index
+        int max=nums[0];
+        pq.offer(new int[]{0,max});// by default we have the index 0 and maxSum will be the value stored at 0th index of nums
+        for(int i=1;i<nums.length;i++){
+            while((i-pq.peek()[0])>k)
+                pq.poll();
+            max = nums[i] + pq.peek()[1];
+            pq.offer(new int[]{i,max});
             
-           int currScore = nums[idx];
-           if(deque.size()>0) currScore+=deque.peekFirst()[1];
-           if(idx==0) score = currScore;
-            
-           while(deque.size()>0
-           &&currScore>=deque.peekLast()[1]){
-               deque.removeLast();
-           }
-            
-           deque.addLast(new int[]{idx,currScore});
         }
+        return max;
         
-        return score;
     }
 }
