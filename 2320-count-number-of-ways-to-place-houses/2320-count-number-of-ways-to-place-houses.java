@@ -2,10 +2,10 @@ class Solution {
     
     private static int MOD = 1000000007;
     public int countHousePlacements(int n) {
-        if(n==1){
-            return 4;
-        }
-        long[] dp = new long[n];
+        // if(n==1){
+        //     return 4;
+        // }
+        long[] dp = new long[n+1];
         int i;
         dp[0] = 2;
         dp[1] = 3;
