@@ -26,8 +26,8 @@ class Solution {
         if(root == null){
             return 0;
         }
-        int l = dfs(root.left, maxTillNow);
-        int r = dfs(root.right, maxTillNow);
+        int l = Math.max(0,dfs(root.left, maxTillNow));
+        int r = Math.max(0,dfs(root.right, maxTillNow));
         maxTillNow[0] = Math.max(maxTillNow[0], l+r+root.val);
         return Math.max(0,Math.max(l,r)+root.val);
     }
