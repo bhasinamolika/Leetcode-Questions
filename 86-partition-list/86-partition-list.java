@@ -10,40 +10,28 @@
  */
 class Solution {
     public ListNode partition(ListNode head, int x) {
-
-        // before and after are the two pointers used to create the two list
-        // before_head and after_head are used to save the heads of the two lists.
-        // All of these are initialized with the dummy nodes created.
-        ListNode before_head = new ListNode(0);
-        ListNode before = before_head;
-        ListNode after_head = new ListNode(0);
-        ListNode after = after_head;
-
-        while (head != null) {
-
-            // If the original list node is lesser than the given x,
-            // assign it to the before list.
-            if (head.val < x) {
-                before.next = head;
-                before = before.next;
-            } else {
-                // If the original list node is greater or equal to the given x,
-                // assign it to the after list.
-                after.next = head;
-                after = after.next;
+        ListNode beforeDummy=new ListNode(0);
+        ListNode AfterDummy=new ListNode(0);
+        ListNode before=beforeDummy;
+        ListNode after=AfterDummy;
+        
+        while(head!=null){
+            if(head.val<x){
+                ListNode node=new ListNode(head.val);
+                before.next=node;
+                before=before.next;
             }
-
-            // move ahead in the original list
-            head = head.next;
+            else{
+                ListNode node=new ListNode(head.val);
+                after.next=node;
+                after=after.next;
+            }
+            
+            head=head.next;
         }
-
-        // Last node of "after" list would also be ending node of the reformed list
-        after.next = null;
-
-        // Once all the nodes are correctly assigned to the two lists,
-        // combine them to form a single list which would be returned.
-        before.next = after_head.next;
-
-        return before_head.next;
+        after.next=null;
+        before.next=AfterDummy.next;
+        
+        return beforeDummy.next;
     }
 }
