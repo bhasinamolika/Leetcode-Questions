@@ -28,6 +28,23 @@ class Solution {
                     dp[i][j]=Math.max(dp[i][j-1],dp[i-1][j]);
             }
         }
+        int i=m;
+        int j=m;
+        String pal="";
+        while(i>0 && j>0){
+            if(s.charAt(i-1)==rev.charAt(j-1)){
+                pal=s.charAt(i-1)+pal;
+                i--;
+                j--;
+            }
+            else{
+                if(dp[i-1][j]>dp[i][j-1])
+                    i--;
+                else
+                    j--;
+            }
+        }
+        System.out.println(pal);
         return dp[m][m];
     }
 }
