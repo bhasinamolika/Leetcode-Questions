@@ -1,4 +1,7 @@
 class Solution {
+    // this is not the most optimal approach,refer the previous submission for more optimal solution but this will also work if you need to print out the longest common subsequence , in that case the return type will be string and we will return dp[text1.length][text2.length] you came up with this approach yourself, refer your notes for optimal solution given by Aditya Verma
+    
+
     public int longestCommonSubsequence(String text1, String text2) {
         String dp[][]=new String[text1.length()+1][text2.length()+1];
         //initialisation
