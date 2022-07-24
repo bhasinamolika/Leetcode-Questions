@@ -1,63 +1,56 @@
 class Solution {
-    int[][] dp;
-    public String shortestCommonSupersequence(String str1, String str2) { //3. Once LCS is got, code for printing shortestCommonSupersequence
-        int lcsLen = longestCommonSubsequence(str1, str2); 
-        int m = str1.length();
-        int n = str2.length();
-        int i = m, j = n;
-        String lcsStr = "";
-        
-        while(i > 0 && j > 0) { //4. Find LCS string from DP table
-            if(str1.charAt(i-1) == str2.charAt(j-1)) {
-                lcsStr = str1.charAt(i-1) + lcsStr;
+    public String shortestCommonSupersequence(String s1, String s2) {
+        int n = s1.length();
+        int m = s2.length();
+        int[][] dp = new int[n+1][m+1];
+             
+        int len = lcs_tabu(s1,n,s2,m,dp);
+       
+        int i=n,j=m;
+        StringBuilder sb = new StringBuilder();
+        while(i>0 && j>0){
+            if(s1.charAt(i-1) == s2.charAt(j-1)){
+                sb.append(s1.charAt(i-1));
                 i--;
                 j--;
-            }
-            else {
-                if(dp[i-1][j] > dp[i][j-1]) {
-                    i--;
-                }
-                else 
-                    j--;
+            }else if(dp[i-1][j] > dp[i][j-1]){
+                sb.append(s1.charAt(i-1));
+                i--;
+            }else{
+                sb.append(s2.charAt(j-1));
+                j--;
             }
         }
-		
-		//5. Steps to make final answer
-        String res = "";
-        int x=0, y=0;
-        char[] arr = lcsStr.toCharArray();
         
-        for(char c : arr) {
-            while(str1.charAt(x) != c)
-                res += str1.charAt(x++);
-            while(str2.charAt(y) != c)
-                res += str2.charAt(y++);
-            
-            res += c;
-            x++;
-            y++;
+        while(i>0){
+            sb.append(s1.charAt(i-1));
+            i--;
         }
-        return res + str1.substring(x) + str2.substring(y);
+        while(j>0){
+            sb.append(s2.charAt(j-1));
+            j--;
+        }
+        
+        
+        return sb.reverse().toString();
     }
     
-    public int longestCommonSubsequence(String text1, String text2) {  //1. Finding LCS and returning it -- Coded in same way as aditya verma did --
-        int m = text1.length();
-        int n = text2.length();
-        dp = new int[m+1][n+1];
-        findAns(text1, m, text2, n); //2. look at findAns method below for the LCS approach
-        return dp[m][n];
-    }
-    
-    public void findAns(String text1, int m, String text2, int n) {
-        for(int i=0; i<=m; i++) {
-            for(int j=0; j<=n; j++) {
-                if(i == 0 || j == 0)
-                    dp[i][j] = 0;
-                else if(text1.charAt(i-1) == text2.charAt(j-1))
-                    dp[i][j] = 1 + dp[i-1][j-1];
-                else 
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+       
+    public int lcs_tabu(String s1,int N,String s2,int M,int[][] dp){        
+        
+        for(int n=0;n<=s1.length();n++){
+            for(int m=0;m<= s2.length();m++){
+                if(n==0 || m==0){
+                    dp[n][m] = 0;
+                    continue;
+                }
+                if(s1.charAt(n-1) == s2.charAt(m-1)){
+                    dp[n][m] = dp[n-1][m-1] + 1;
+                }else{
+                    dp[n][m] = Math.max(dp[n-1][m],dp[n][m-1]);
+                }
             }
         }
+             return dp[N][M];
     }
 }
