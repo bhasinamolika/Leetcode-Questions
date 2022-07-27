@@ -1,25 +1,22 @@
 class Solution {
-    public int f(int ind,int canBuy,int cap,int []prices,int [][][]dp){
-        if(ind==prices.length || cap==0)
-            return 0;
-        if(dp[ind][canBuy][cap]!=-1) return dp[ind][canBuy][cap];
-        if(canBuy==1)
-        {
-            dp[ind][canBuy][cap]=Math.max(-prices[ind]+f(ind+1,0,cap,prices,dp),0+f(ind+1,1,cap,prices,dp));
-            return dp[ind][canBuy][cap];
-        }
-        else{
-            dp[ind][canBuy][cap]=Math.max(prices[ind]+f(ind+1,1,cap-1,prices,dp),0+f(ind+1,0,cap,prices,dp));
-            return dp[ind][canBuy][cap];
-        }
-    }
+    
     public int maxProfit(int k, int[] prices) {
-        int dp[][][]=new int[prices.length][2][k+1];
-        for(int i=0;i<prices.length;i++){
-            for(int j=0;j<2;j++){
-                Arrays.fill(dp[i][j],-1);
+        int dp[][][]=new int[prices.length+1][2][k+1];
+        for(int ind=prices.length-1;ind>=0;ind--){
+            for(int canBuy=0;canBuy<2;canBuy++){
+                for(int cap=1;cap<=k;cap++){
+                    
+                    if(canBuy==1)
+                    {
+                        dp[ind][canBuy][cap]=Math.max(-prices[ind]+dp[ind+1][0][cap],0+dp[ind+1][1][cap]);
+                        
+                    }
+                    else{
+                        dp[ind][canBuy][cap]=Math.max(prices[ind]+dp[ind+1][1][cap-1],0+dp[ind+1][0][cap]);
+                    }
+                }
             }
         }
-        return f(0,1,k,prices,dp);
+        return dp[0][1][k];
     }
 }
