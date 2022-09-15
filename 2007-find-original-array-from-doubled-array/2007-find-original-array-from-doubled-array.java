@@ -6,10 +6,11 @@ class Solution {
         HashMap<Integer, Integer> hm = new HashMap<>();
         
         for(int i: changed){
-            if(hm.containsKey(i))
-                hm.put(i, hm.get(i)+1);
-            else
-                hm.put(i, 1);
+            // if(hm.containsKey(i))
+            //     hm.put(i, hm.get(i)+1);
+            // else
+            //     hm.put(i, 1);
+            hm.put(i,hm.getOrDefault(i,0)+1);
         }
         
         Arrays.sort(changed);
