@@ -1,4 +1,5 @@
 class Solution {
+    // totally intuitive!! check hints for more clarity
     public String breakPalindrome(String palindrome) {
         if(palindrome.length()<=1)
            return "";
