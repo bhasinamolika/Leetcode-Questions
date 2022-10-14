@@ -9,26 +9,28 @@
  * }
  */
 class Solution {
-public ListNode deleteMiddle(ListNode head) {
-if(head==null || head.next==null){
-return null;
-}
-ListNode cc=head;
-int count=0;
-while(cc!=null){
-count++;
-cc=cc.next;
-
-    }
-    ListNode cur=head;
-    ListNode frwd=head.next;
-    for(int i=0;i<count/2-1;i++){
-        if(frwd!=null){
-            frwd=frwd.next;
-            cur=cur.next;
+    public ListNode deleteMiddle(ListNode head) {
+        if(head.next==null){
+            return null;
         }
+        ListNode fast=head;
+        ListNode slow=head;
+        ListNode sentinel=new ListNode();
+        sentinel.next=head;
+        ListNode prev=sentinel;
+        while(fast!=null && fast.next!=null){
+            fast=fast.next.next;
+            slow=slow.next;
+            prev=prev.next;
+        }
+        // now slow pointer is pointing at the node which is to be deleted
+        if(slow.next!=null){
+            slow.val=slow.next.val;
+            slow.next=slow.next.next;
+        }
+        else{
+            prev.next=null;
+        }
+        return head;
     }
-    cur.next=frwd.next;
-    return head;
-}
 }
