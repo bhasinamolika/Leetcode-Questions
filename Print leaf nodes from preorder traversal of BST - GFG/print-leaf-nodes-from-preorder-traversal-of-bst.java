@@ -34,15 +34,9 @@ class GFG
 class Solution
 
 {
-
-    
-
     public int[] leafNodes(int arr[], int N)
 
     { 
-
-        
-
         int n=N;
 
         ArrayList<Integer> al=new ArrayList<>();
@@ -54,11 +48,7 @@ class Solution
         for(int i=1;i<n;i++)
 
         {
-
             s.push(arr[i]);
-
-        
-
             int count=0;
 
             Iterator value=s.iterator();
