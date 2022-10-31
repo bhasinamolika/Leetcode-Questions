@@ -5,9 +5,6 @@ class Solution {
             return;
         }
         if(ind==candidates.length){
-            if(target==0) 
-                ans.add(new ArrayList<>(ds));
-            
             return;
         }
         if(candidates[ind]<=target){
