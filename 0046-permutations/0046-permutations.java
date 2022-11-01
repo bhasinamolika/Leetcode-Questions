@@ -1,41 +1,28 @@
 class Solution {
-    
-    public void find(int[] nums,List<Integer> res,List<List<Integer>> ans,int visited[]){
-        
-        //check if all elements are included
-        if(res.size()==nums.length){
-            ans.add(new ArrayList(res));
+    //swapping approach
+    private void f(int [] nums,int idx,List<List<Integer>> ans){
+        if(idx==nums.length){
+            ArrayList<Integer> ds=new ArrayList<>();
+            for(int i=0;i<nums.length;i++){
+                ds.add(nums[i]);
+            }
+            ans.add(new ArrayList<>(ds));
             return;
         }
-        
-        for(int i=0;i<nums.length;i++){
-            
-            //check if current element is already in the res list or not
-            if(visited[i]==0){
-                visited[i]=1;
-                res.add(nums[i]);
-                find(nums,res,ans,visited);
-            
-            //remove from res list and unvisit the current element
-                res.remove(res.size()-1);
-                visited[i]=0;
-                 
-            }
-            
-           
+        for(int i=idx;i<nums.length;i++){
+            swap(nums,idx,i);
+            f(nums,idx+1,ans);
+            swap(nums,idx,i);
         }
-        
+    }
+    private void swap(int []nums,int i,int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
     }
     public List<List<Integer>> permute(int[] nums) {
-        
-        //list of permutations 
-        List<List<Integer>> ans=new ArrayList();
-        
-        //stores one permutation in the recursive stack
-        List<Integer> res=new ArrayList();
-        
-        int visited[]=new int[nums.length];
-        find(nums,res,ans,visited);
+        List<List<Integer>> ans=new ArrayList<>();
+        f(nums,0,ans);
         return ans;
     }
 }
