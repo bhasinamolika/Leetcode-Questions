@@ -1,26 +1,26 @@
 class Solution {
+    public int dfs(int[][] grid, int i, int j){
+        if(i==grid.length)
+            return j;
+        
+        if(j<0 || j>=grid[0].length)
+            return -1;
+        
+        if(grid[i][j]==1 && j+1<grid[0].length && grid[i][j+1]==1)
+            return dfs(grid,i+1,j+1);
+        
+        else if(grid[i][j]==-1 && j-1>=0 && grid[i][j-1]==-1)
+            return dfs(grid,i+1,j-1);
+         
+        return -1;
+    }
     public int[] findBall(int[][] grid) {
-        int result[] = new int[grid[0].length];
-        Integer memo[][] = new Integer[grid.length + 1][grid[0].length];
-
-        for (int row = grid.length; row >= 0; row--) {
-            for (int col = 0; col < grid[0].length; col++) {
-                if (row == grid.length) {
-                    memo[row][col] = col;
-                    continue;
-                }
-                int nextColumn = col + grid[row][col];
-                if (nextColumn < 0 ||
-                        nextColumn > grid[0].length - 1 ||
-                        grid[row][col] != grid[row][nextColumn])
-                    memo[row][col] = -1;
-                else
-                    memo[row][col] = memo[row + 1][nextColumn];
-                if (row == 0) {
-                    result[col] = memo[row][col];
-                }
-            }
-        }
-        return result;
+        int m = grid[0].length;
+        int[] ar = new int[m];
+        
+        for(int j=0;j<m;j++)
+            ar[j]=dfs(grid,0,j);
+        
+        return ar;
     }
 }
