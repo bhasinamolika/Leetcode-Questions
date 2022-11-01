@@ -1,22 +1,18 @@
 class Solution {
-    public int[] findBall(int[][] grid) {
-        int result[] = new int[grid[0].length];
-        for (int i = 0; i < grid[0].length; i++) {
-            result[i] = findBallDropColumn(0, i, grid);
-        }
-        return result;
-    }
-
-    public int findBallDropColumn(int row, int col, int[][] grid) {
-        // base case; ball reached the last row
-        if (row == grid.length)
+    private int findBallDropCol(int row,int col,int [][]grid){
+        if(row==grid.length)
             return col;
-        int nextColumn = col + grid[row][col];
-        if (nextColumn < 0 ||
-                nextColumn > grid[0].length - 1 ||
-                grid[row][col] != grid[row][nextColumn]) {
+        int nextCol=col+grid[row][col];
+        if(nextCol<0 || nextCol>grid[0].length-1 || grid[row][col]!=grid[row][nextCol]){
             return -1;
         }
-        return findBallDropColumn(row + 1, nextColumn, grid);
+        return findBallDropCol(row+1,nextCol,grid);
+    }
+    public int[] findBall(int[][] grid) {
+        int res[]=new int[grid[0].length];
+        for(int i=0;i<res.length;i++){
+            res[i]=findBallDropCol(0,i,grid);
+        }
+        return res;
     }
 }
