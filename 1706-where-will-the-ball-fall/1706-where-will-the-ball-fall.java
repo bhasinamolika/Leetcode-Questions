@@ -1,26 +1,18 @@
 class Solution {
-    public int dfs(int[][] grid, int i, int j){
-        if(i==grid.length)
-            return j;
-        
-        if(j<0 || j>=grid[0].length)
+    private int findBallDropCol(int row,int col,int [][]grid){
+        if(row==grid.length)
+            return col;
+        int nextCol=col+grid[row][col];
+        if(nextCol<0 || nextCol>grid[0].length-1 || grid[row][col]!=grid[row][nextCol]){
             return -1;
-        
-        if(grid[i][j]==1 && j+1<grid[0].length && grid[i][j+1]==1)
-            return dfs(grid,i+1,j+1);
-        
-        else if(grid[i][j]==-1 && j-1>=0 && grid[i][j-1]==-1)
-            return dfs(grid,i+1,j-1);
-         
-        return -1;
+        }
+        return findBallDropCol(row+1,nextCol,grid);
     }
     public int[] findBall(int[][] grid) {
-        int m = grid[0].length;
-        int[] ar = new int[m];
-        
-        for(int j=0;j<m;j++)
-            ar[j]=dfs(grid,0,j);
-        
-        return ar;
+        int res[]=new int[grid[0].length];
+        for(int i=0;i<res.length;i++){
+            res[i]=findBallDropCol(0,i,grid);
+        }
+        return res;
     }
 }
