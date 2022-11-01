@@ -11,16 +11,18 @@ class Solution {
         for(int i=0;i<nums.length;i++){
             
             //check if current element is already in the res list or not
-            if(visited[i]==1)continue;
-            
-            //if not visited then mark it as visited and add to res and call recursion for rest elements.
-            visited[i]=1;
-            res.add(nums[i]);
-            find(nums,res,ans,visited);
+            if(visited[i]==0){
+                visited[i]=1;
+                res.add(nums[i]);
+                find(nums,res,ans,visited);
             
             //remove from res list and unvisit the current element
-            res.remove(res.size()-1);
-            visited[i]=0;
+                res.remove(res.size()-1);
+                visited[i]=0;
+                 
+            }
+            
+           
         }
         
     }
